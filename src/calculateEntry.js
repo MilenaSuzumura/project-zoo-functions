@@ -1,7 +1,7 @@
 const data = require('../data/zoo_data');
 
 function countEntrants(entrants) {
-  const entradas = {'adult': 0, 'child': 0, 'senior': 0};
+  const entradas = { adult: 0, child: 0, senior: 0 };
   const criancas = entrants.filter((pessoas) => pessoas.age < 18);
   const adultos = entrants.filter((pessoas) => pessoas.age >= 18 && pessoas.age < 50);
   const idosos = entrants.filter((pessoas) => pessoas.age >= 50);
@@ -12,7 +12,7 @@ function countEntrants(entrants) {
 }
 
 function calculateEntry(entrants) {
-  if (entrants === undefined  || Object.keys(entrants).length === 0) {
+  if (entrants === undefined || Object.keys(entrants).length === 0) {
     return 0;
   }
   const quantidade = countEntrants(entrants);
