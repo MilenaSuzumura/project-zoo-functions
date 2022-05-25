@@ -20,19 +20,19 @@ function getEmployeesCoverage(employees) {
   const funcionarios = buscaFuncionario(employees);
   if (funcionarios.length === 1) {
     const animais = buscaAnimal(funcionarios[0].responsibleFor);
-    const especie = animais.map((animal) => animal.name);
-    const local = animais.map((animal) => animal.location);
     const { firstName, lastName, id } = funcionarios[0];
-    return { id: `${id}`, fullName: `${firstName} ${lastName}`, species: especie,
-      locations: local };
+    return { id: `${id}`,
+      fullName: `${firstName} ${lastName}`,
+      species: animais.map((animal) => animal.name),
+      locations: animais.map((animal) => animal.location) };
   }
   return funcionarios.reduce((acc, funcionario) => {
     const animal = buscaAnimal(funcionario.responsibleFor);
     const { firstName, lastName, id } = funcionario;
-    const especie = animal.map((animais) => animais.name);
-    const local = animal.map((animais) => animais.location);
-    acc.push({ id: `${id}`, fullName: `${firstName} ${lastName}`,
-      species: especie, locations: local });
+    acc.push({ id: `${id}`,
+      fullName: `${firstName} ${lastName}`,
+      species: animal.map((animais) => animais.name),
+      locations: animal.map((animais) => animais.location) });
     return acc;
   }, []);
 }
