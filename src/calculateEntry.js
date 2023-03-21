@@ -35,7 +35,15 @@ function calculateSenior(quantity) {
 }
 
 function calculateEntry(entrants) {
-  // seu código aqui
+  if (entrants === undefined || Object.keys(entrants).length === 0) {
+    return 0;
+  }
+
+  const quantityEntrants = countEntrants(entrants);
+  const adult = calculateAdults(quantityEntrants.adult);
+  const child = calculateChildren(quantityEntrants.child);
+  const senior = calculateSenior(quantityEntrants.senior);
+  return adult + child + senior;
 }
 
 module.exports = { calculateEntry, countEntrants };
