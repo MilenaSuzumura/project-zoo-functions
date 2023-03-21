@@ -30,6 +30,10 @@ function calculateChildren(quantity) {
   return data.prices.child * quantity;
 }
 
+function calculateSenior(quantity) {
+  return data.prices.senior * quantity;
+}
+
 function calculateEntry(entrants) {
   // seu código aqui
 }
