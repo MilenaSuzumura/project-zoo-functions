@@ -16,3 +16,10 @@ Desenvolvido usando: JavaScript, Higher Order Functions e Teste de Unidade.
 * <strong>getOldestFromFirstSpecies:</strong> Encontra o animal mais velho de uma espécie que é gerenciado por uma pessoa colaboradora
 * <strong>getEmployeesCoverage:</strong> Busca as informações sobre a pessoa colaboradora e por quais espécies ela é responsável
 * <strong>getAnimalMap:</strong> Faz o mapeamento geográfico dos animais de cada espécie e realiza filtros de localização, nome em ordem alfabética e sexo.
+
+## Instalando Dependências
+  `npm install`
+
+## Executando Testes
+Para rodar todos os testes:
+  `npm test`
