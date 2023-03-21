@@ -5,6 +5,11 @@ function countChild(entrants) {
   return children.length;
 }
 
+function countAdult(entrants) {
+  const adults = entrants.filter((person) => person.age >= 18 && person.age < 50);
+  return adults.length;
+}
+
 function countEntrants(entrants) {
   // seu código aqui
 }
