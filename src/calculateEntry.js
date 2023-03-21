@@ -43,7 +43,8 @@ function calculateEntry(entrants) {
   const adult = calculateAdults(quantityEntrants.adult);
   const child = calculateChildren(quantityEntrants.child);
   const senior = calculateSenior(quantityEntrants.senior);
-  return adult + child + senior;
+  const total = (adult + child + senior).toFixed(2);
+  return parseFloat(total);
 }
 
 module.exports = { calculateEntry, countEntrants };
