@@ -22,6 +22,10 @@ function countEntrants(entrants) {
   return { adult, child, senior };
 }
 
+function calculateAdults(quantity) {
+  return data.prices.adult * quantity;
+}
+
 function calculateEntry(entrants) {
   // seu código aqui
 }
