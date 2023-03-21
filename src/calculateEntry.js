@@ -16,7 +16,10 @@ function countSenior(entrants) {
 }
 
 function countEntrants(entrants) {
-  // seu código aqui
+  const child = countChild(entrants);
+  const adult = countAdult(entrants);
+  const senior = countSenior(entrants);
+  return { adult, child, senior };
 }
 
 function calculateEntry(entrants) {
