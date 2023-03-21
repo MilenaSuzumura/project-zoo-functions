@@ -20,8 +20,7 @@
       "html"
     ],
     "collectCoverageFrom": [
-      "**/src/handlerElephants.js",
-      "**/src/getOpeningHours.js"
+      "**/src/*.js"
     ],
     "testMatch": [
       "**/test/**/*.test.js?(x)",
