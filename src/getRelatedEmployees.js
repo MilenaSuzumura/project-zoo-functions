@@ -9,18 +9,17 @@ function isManager(id) {
 }
 
 function getRelatedEmployees(managerId) {
-  const manager = isManager(managerId);
-  if (!manager) throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
-
-  const collaborator = data.employees.reduce((acc, employee) => {
-    const isManagersEmployees = employee.managers.some((id) => id === managerId);
-
-    if (isManagersEmployees) acc.push(`${employee.firstName} ${employee.lastName}`);
-
-    return acc;
-  }, []);
-
-  return collaborator;
+  const colaborador = data.employees.filter((funcionario) => {
+    const existeId = funcionario.managers.some((id) => id === managerId);
+    if (existeId === true) {
+      return funcionario;
+    }
+    return '';
+  }).map((funcionarios) => `${funcionarios.firstName} ${funcionarios.lastName}`);
+  if (colaborador.length === 0) {
+    throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
+  }
+  return colaborador;
 }
 
 module.exports = { isManager, getRelatedEmployees };
