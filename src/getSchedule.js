@@ -1,34 +1,59 @@
 const data = require('../data/zoo_data');
 
-function horario(dia) {
-  if (dia === 'Monday') return 'CLOSED';
-  return `Open from ${data.hours[`${dia}`].open}am until ${data.hours[`${dia}`].close}pm`;
+function validateAnimal(isAnimal) {
+  return data.species.some((animal) => animal.name === isAnimal);
 }
 
-function arrayAnimais(dia) {
-  if (dia === 'Monday') return 'The zoo will be closed!';
+function validateDay(isDay) {
+  return Object.keys(data.hours).some((day) => day === isDay);
+}
+
+function validateParameter(parameter) {
+  const isAnimal = validateAnimal(parameter);
+  const isDay = validateDay(parameter);
+
+  return { animal: isAnimal, day: isDay };
+}
+
+function findAnimal(animalSchedule) {
+  return data.species.find((animal) => animal.name === animalSchedule).availability;
+}
+
+function arrayAnimals(day) {
+  if (day === 'Monday') return 'The zoo will be closed!';
+
   return data.species.reduce((acc, animal) => {
-    if (animal.availability.includes(dia)) acc.push(animal.name);
+    if (animal.availability.includes(day)) acc.push(animal.name);
     return acc;
   }, []);
 }
 
-function getSchedule(scheduleTarget) {
-  const animalExiste = data.species.some((animais) => animais.name === scheduleTarget);
-  const diaExiste = Object.keys(data.hours).some((dias) => dias === scheduleTarget);
-  if (animalExiste === true) {
-    return data.species.find((animal) => animal.name === scheduleTarget).availability;
-  } if (diaExiste === true) {
-    const animal = arrayAnimais(scheduleTarget);
-    const horas = horario(scheduleTarget);
-    return { [`${scheduleTarget}`]: { exhibition: animal, officeHour: horas } };
-  }
-  return Object.keys(data.hours).reduce((acc, semanaDia) => {
-    const animal = arrayAnimais(semanaDia);
-    const horas = horario(semanaDia);
-    acc[semanaDia] = { exhibition: animal, officeHour: horas };
-    return acc;
+function schedule(day) {
+  if (day === 'Monday') return 'CLOSED';
+  return `Open from ${data.hours[`${day}`].open}am until ${data.hours[`${day}`].close}pm`;
+}
+
+function scheduleFormat(day) {
+  const animal = arrayAnimals(day);
+  const time = schedule(day);
+  return { [`${day}`]: { exhibition: animal, officeHour: time } };
+}
+
+function everySchedule() {
+  return Object.keys(data.hours).reduce((acc, dayOfWeek) => {
+    const scheduleDay = scheduleFormat(dayOfWeek);
+    return { ...acc, ...scheduleDay };
   }, {});
+}
+
+function getSchedule(scheduleTarget) {
+  const validate = validateParameter(scheduleTarget);
+
+  if (validate.animal) return findAnimal(scheduleTarget);
+
+  if (validate.day) return scheduleFormat(scheduleTarget);
+
+  return everySchedule();
 }
 
 module.exports = getSchedule;
