@@ -1,21 +1,51 @@
 const data = require('../data/zoo_data');
 
-function countAnimals(animal) {
-  const existeValor = animal !== undefined ? animal : false;
-  const { specie, sex } = existeValor;
-  const semValor = data.species.reduce((acc, animais) => {
-    acc[animais.name] = animais.residents.length;
+function validParameter(animal) {
+  const haveParameter = animal !== undefined
+    ? { specie: animal.specie, sex: animal.sex }
+    : { specie: undefined, sex: undefined };
+
+  return haveParameter;
+}
+
+function countAllAnimals() {
+  return data.species.reduce((acc, animal) => {
+    acc[animal.name] = animal.residents.length;
     return acc;
   }, {});
-  if (existeValor !== false) {
-    const procuraAnimal = data.species.filter((animais) => animais.name === specie)[0]
-      .residents.map((animais) => animais);
-    if (sex !== undefined) {
-      return procuraAnimal.filter((residentes) => residentes.sex === sex).length;
-    }
-    return procuraAnimal.length;
+}
+
+function countSpecie(specie) {
+  const getSpecie = data.species.find((animal) => animal.name === specie);
+  return getSpecie.residents;
+}
+
+function residentSex(residents, sex) {
+  return residents.filter((resident) => resident.sex === sex);
+}
+
+function countSex(sex) {
+  return data.species.reduce((acc, animal) => {
+    acc[animal.name] = residentSex(animal.residents, sex).length;
+    return acc;
+  }, {});
+}
+
+function countAnimals(animal) {
+  const haveParameter = validParameter(animal);
+  const { specie, sex } = haveParameter;
+
+  if (specie !== undefined) {
+    const specieResident = countSpecie(specie);
+    const haveSex = sex !== undefined ? residentSex(specieResident, sex) : specieResident;
+    return haveSex.length;
   }
-  return semValor;
+
+  if (sex !== undefined) {
+    return countSex(sex);
+  }
+
+  return countAllAnimals();
 }
 
 module.exports = countAnimals;
