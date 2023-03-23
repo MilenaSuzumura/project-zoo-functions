@@ -16,8 +16,8 @@ function getOldestSpecies(residents) {
 }
 
 function getOldestFromFirstSpecies(id) {
-  const responsible = getEmployee(id).responsibleFor;
-  const animal = responsible.map((idAnimal) => getAnimals(idAnimal))[0];
+  const responsible = getEmployee(id).responsibleFor[0];
+  const animal = getAnimals(responsible);
   const oldestFirstSpecie = getOldestSpecies(animal.residents);
 
   return Object.values(oldestFirstSpecie);
