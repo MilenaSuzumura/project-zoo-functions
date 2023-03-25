@@ -9,10 +9,7 @@ function validParameter(animal) {
 }
 
 function countAllAnimals() {
-  return data.species.reduce((acc, animal) => {
-    acc[animal.name] = animal.residents.length;
-    return acc;
-  }, {});
+  return data.species.map((specie) => ({ [specie.name]: specie.residents.length }));
 }
 
 function countSpecie(specie) {
