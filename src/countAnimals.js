@@ -2,14 +2,15 @@ const data = require('../data/zoo_data');
 
 function validParameter(animal) {
   const haveParameter = animal !== undefined
-    ? { specie: animal.specie || false, sex: animal.sex || false }
-    : { specie: false, sex: false };
+    ? { specie: animal.specie, sex: animal.sex }
+    : false;
 
   return haveParameter;
 }
 
 function countAllAnimals() {
-  return data.species.map((specie) => ({ [specie.name]: specie.residents.length }));
+  const { species } = data;
+  return species.map((specie) => ({ [specie.name]: specie.residents.length }));
 }
 
 function countSpecie(specie) {
@@ -32,7 +33,7 @@ function countAnimals(animal) {
   const haveParameter = validParameter(animal);
   const { specie, sex } = haveParameter;
 
-  if (specie) {
+  if (!haveParameter) {
     const specieResident = countSpecie(specie);
     const haveSex = sex ? residentSex(specieResident, sex) : specieResident;
     return haveSex.length;
