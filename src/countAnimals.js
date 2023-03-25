@@ -10,7 +10,10 @@ function validParameter(animal) {
 
 function countAllAnimals() {
   const specieResident = [...data.species];
-  return specieResident.map((specie) => ({ [specie.name]: specie.residents.length }));
+  return specieResident.reduce((acc, animal) => {
+    acc[animal.name] = animal.residents.length;
+    return acc;
+  }, {});
 }
 
 function countSpecie(specie) {
@@ -22,25 +25,14 @@ function residentSex(residents, sex) {
   return residents.filter((resident) => resident.sex === sex);
 }
 
-function countSex(sex) {
-  return data.species.reduce((acc, animal) => {
-    acc[animal.name] = residentSex(animal.residents, sex).length;
-    return acc;
-  }, {});
-}
-
 function countAnimals(animal) {
   const haveParameter = validParameter(animal);
-  const { specie, sex } = haveParameter;
 
-  if (!haveParameter) {
+  if (haveParameter) {
+    const { specie, sex } = haveParameter;
     const specieResident = countSpecie(specie);
-    const haveSex = sex ? residentSex(specieResident, sex) : specieResident;
+    const haveSex = sex !== undefined ? residentSex(specieResident, sex) : specieResident;
     return haveSex.length;
-  }
-
-  if (sex) {
-    return countSex(sex);
   }
 
   return countAllAnimals();
