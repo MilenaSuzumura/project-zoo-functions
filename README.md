@@ -31,7 +31,7 @@ OBS: ESSE PROJETO FOI DESENVOLVIDO NA TRYBE.
 * <strong>handlerElephants:</strong> Retorna informações dos elefantes referente ao argumento que foi passado como parâmetro
 
 |   Argumento    | Informação                                                                    |
-|     :---:      |     :---:                                                                     |
+|     :---:      | :---:                                                                         |
 |    `count`     | retorna a quantidade de elefantes                                             |
 |    `names`     | retorna um array com a relação dos nomes de todos os elefantes                |
 |  `averageAge`  | retorna a média de idade dos elefantes                                        |
