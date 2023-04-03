@@ -1,40 +1,52 @@
 const data = require('../data/zoo_data');
 
-function buscaFuncionario(idName) {
-  if (idName === undefined) {
-    return data.employees;
-  }
-  const funcionarios = data.employees.filter((funcionario) =>
-    Object.values(funcionario).includes(Object.values(idName)[0]));
-  if (funcionarios.length === 0) {
-    throw new Error('Informações inválidas');
-  }
-  return funcionarios;
+function getEmployees(idOrName) {
+  if (idOrName === undefined) return data.employees;
+
+  const findEmployee = data.employees.find((employee) =>
+    Object.values(employee).includes(Object.values(idOrName)[0]));
+
+  if (findEmployee === undefined) throw new Error('Informações inválidas');
+
+  return findEmployee;
 }
 
-function buscaAnimal(idAnimal) {
-  return idAnimal.map((id) => data.species.find((animal) => animal.id === id));
+function getAnimal(id) {
+  return data.species.find((animal) => animal.id === id);
+}
+
+function infoEmployee(id, firstName, lastName, arrayAnimal) {
+  return {
+    id,
+    fullName: `${firstName} ${lastName}`,
+    species: arrayAnimal.map((animal) => animal.name),
+    locations: arrayAnimal.map((animal) => animal.location),
+  };
+}
+
+function oneEmployee(employee) {
+  const animals = employee.responsibleFor.map((id) => getAnimal(id));
+  const { firstName, lastName, id } = employee;
+  return infoEmployee(id, firstName, lastName, animals);
+}
+
+function allEmployees(employees) {
+  const reduceEmployees = employees.reduce((acc, employee) => {
+    const animals = employee.responsibleFor.map((id) => getAnimal(id));
+    const { firstName, lastName, id } = employee;
+    acc.push(infoEmployee(id, firstName, lastName, animals));
+    return acc;
+  }, []);
+
+  return reduceEmployees;
 }
 
 function getEmployeesCoverage(employees) {
-  const funcionarios = buscaFuncionario(employees);
-  if (funcionarios.length === 1) {
-    const animais = buscaAnimal(funcionarios[0].responsibleFor);
-    const { firstName, lastName, id } = funcionarios[0];
-    return { id: `${id}`,
-      fullName: `${firstName} ${lastName}`,
-      species: animais.map((animal) => animal.name),
-      locations: animais.map((animal) => animal.location) };
-  }
-  return funcionarios.reduce((acc, funcionario) => {
-    const animal = buscaAnimal(funcionario.responsibleFor);
-    const { firstName, lastName, id } = funcionario;
-    acc.push({ id: `${id}`,
-      fullName: `${firstName} ${lastName}`,
-      species: animal.map((animais) => animais.name),
-      locations: animal.map((animais) => animais.location) });
-    return acc;
-  }, []);
+  const isEmployee = getEmployees(employees);
+
+  if (isEmployee.length === undefined) return oneEmployee(isEmployee);
+
+  return allEmployees(isEmployee);
 }
 
 module.exports = getEmployeesCoverage;

@@ -1,36 +1,31 @@
 const data = require('../data/zoo_data');
 
-function comResidentes(residentes, sex, sorted) {
-  const sexAnimal = residentes.filter((residente) => residente.sex === sex)
-    .map((residente) => residente.name);
-  const sexExiste = sex !== undefined ? sexAnimal : residentes.map((residente) =>
-    residente.name);
-  const sortExiste = sorted === true ? sexExiste.sort() : sexExiste;
-  return sortExiste;
+function filterSex(sex, residents) {
+  const filter = residents.filter((resident) => resident.sex === sex);
+  return filter.map((resident) => resident.name);
 }
 
-function verificaValor(valor, animal, animalComResidentes) {
-  const existeValor = valor === false ? animal : animalComResidentes;
-  return existeValor;
+function getAllResidents(residents) {
+  return residents.map((resident) => resident.name);
+}
+
+function haveFilter(filter, animal) {
+  const { name, residents } = animal;
+  const { sex, sorted } = filter;
+  const haveSex = sex !== undefined ? filterSex(sex, residents) : getAllResidents(residents);
+  const haveSorted = sorted !== undefined ? haveSex.sort() : haveSex;
+  return { [name]: haveSorted };
 }
 
 function getAnimalMap(options) {
-  const valorExiste = options === undefined || Object.keys(options)[0] !== 'includeNames'
-    ? false : options;
-  const { sex, sorted } = valorExiste;
-  const comSex = data.species.reduce((acc, animal) => {
-    const objeto = {};
-    const residente = comResidentes(animal.residents, sex, sorted);
-    objeto[animal.name] = residente;
-    acc.push(objeto);
-    return acc;
-  }, []);
-  return data.species.reduce((acc, animal, index) => {
-    const resultado = verificaValor(valorExiste, animal.name, comSex[index]);
-    if (Object.keys(acc).includes(animal.location)) acc[animal.location].push(resultado);
-    else acc[animal.location] = [resultado];
+  const haveValue = options !== undefined && Object.keys(options)[0] === 'includeNames';
+  const getAnimal = data.species.reduce((acc, animal) => {
+    const result = haveValue ? haveFilter(options, animal) : animal.name;
+    if (Object.keys(acc).includes(animal.location)) acc[animal.location].push(result);
+    else acc[animal.location] = [result];
     return acc;
   }, {});
+  return getAnimal;
 }
 
 module.exports = getAnimalMap;
