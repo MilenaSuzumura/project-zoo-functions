@@ -2,7 +2,7 @@
 
 Zoo Functions é um projeto focado em organizar as informações de um zoológico, utilizando Higher Order Functions.
 
-OBS: ESSE PROJETO FOI DESENVOLVIDO NA TRYBE.
+<strong>OBS:</strong> ESSE PROJETO FOI DESENVOLVIDO NA TRYBE.
 
 ## Técnologias usadas
 * JavaScript;
@@ -40,15 +40,18 @@ OBS: ESSE PROJETO FOI DESENVOLVIDO NA TRYBE.
 |  `popularity`  | retorna a popularidade dos elefantes                                          |
 | `availability` | retorna um array com a relação de dias em que é possível visitar os elefantes |
 
+
 * <strong>getOpeningHours:</strong> Mostra os horários abertos do zoológico de cada dia da semana.
 
 ## Instalando Dependências
   `npm install`
 
+
 ## Executando Testes
 Para rodar todos os testes:
 
   `npm test`
+
 
 Para rodar um teste específico:
 
@@ -56,6 +59,7 @@ Para rodar um teste específico:
 
 exemplo:
 `npm test getEmployeesCoverage`
+
 
 Para rodar os testes de cobertura:
 
