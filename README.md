@@ -3,12 +3,12 @@
 Zoo Functions é um projeto focado em organizar as informações de um zoológico, utilizando Higher Order Functions.
 OBS: ESSE PROJETO FOI DESENVOLVIDO NA TRYBE.
 
-## Técnologias usadas:
+## Técnologias usadas
 * JavaScript;
 * Higher Order Functions;
 * Teste de Unidade.
 
-## Função de cada Função:
+## Função de cada Função
 * <strong>getSpeciesByIds:</strong> Busca as espécies dos animais por meio de um id e retorna um array contendo todos os animais dessa espécie.
 
 * <strong>getAnimalsOlderThan:</strong> Ao receber uma espécie e uma idade como parâmetro, retorna se todos os animais dessa espécie possuem essa idade ou são mais velhos.
@@ -27,6 +27,20 @@ OBS: ESSE PROJETO FOI DESENVOLVIDO NA TRYBE.
 
 * <strong>getAnimalMap:</strong> Faz o mapeamento geográfico dos animais de cada espécie e realiza filtros de localização, nome em ordem alfabética e sexo.
 
+#### Funções que foram criados apenas os testes:
+* <strong>handlerElephants:</strong> Retorna informações dos elefantes referente ao argumento que foi passado como parâmetro
+
+|   Argumento    | Informação                                                                    |
+|     :---:      |     :---:                                                                     |
+|    `count`     | retorna a quantidade de elefantes                                             |
+|    `names`     | retorna um array com a relação dos nomes de todos os elefantes                |
+|  `averageAge`  | retorna a média de idade dos elefantes                                        |
+|   `location`   | retorna a localização dos elefantes dentro do Zoológico                       |
+|  `popularity`  | retorna a popularidade dos elefantes                                          |
+| `availability` | retorna um array com a relação de dias em que é possível visitar os elefantes |
+
+* <strong>getOpeningHours:</strong> Mostra os horários abertos do zoológico de cada dia da semana.
+
 ## Instalando Dependências
   `npm install`
 
@@ -34,3 +48,14 @@ OBS: ESSE PROJETO FOI DESENVOLVIDO NA TRYBE.
 Para rodar todos os testes:
 
   `npm test`
+
+Para rodar um teste específico:
+
+  `npm test nomeDaFunção`
+
+exemplo:
+`npm test getEmployeesCoverage`
+
+Para rodar os testes de cobertura:
+
+  `npm run test:coverage`
