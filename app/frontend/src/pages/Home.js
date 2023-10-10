@@ -1,6 +1,11 @@
+import Header from "../componets/Header";
+
 function Home() {
   return (
-    <h1>Teste</h1>
+    <div>
+      <Header />
+      <h1>Teste</h1>
+    </div>
   );
 }
 
