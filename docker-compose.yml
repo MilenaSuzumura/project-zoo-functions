@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  node:
+    image: node:21.6.0
+    build: .
+    container_name: zoo_functions
+    tty: true
+    stdin_open: true
+    command: bash
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: db 
+      JWT_SECRET: secretJWT
+      API_HOST: 'node'
+      API_PORT: 3000
+      NODE_ENV: 'development'
+    networks:
+      -  zoo_functions_net
+  db:
+    container_name: zoo_functions_db
+    image: mysql:8.3.0
+    platform: linux/x86_64
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - zoo_functions_net
+
+networks:
+   zoo_functions_net:
+    driver: bridge
